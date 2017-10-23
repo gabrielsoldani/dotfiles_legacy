@@ -45,7 +45,7 @@
 *.color15:      base07
 
 ! urxvt
-URxvt.font: xft:Terminus:size=8
+URxvt.font: xft:monospace:size=8
 URxvt.scrollBar: false
 URxvt.cursorBlink: true
 URxvt.internalBorder: 30
