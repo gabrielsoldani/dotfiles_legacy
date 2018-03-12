@@ -1,6 +1,25 @@
 export TERMINAL=/usr/bin/urxvt
 
-xcalib -d :0 $HOME/.color/icc/N116BGE.icc
+if [ -x /usr/bin/xcalib ]; then
+    /usr/bin/xcalib -d :0 ~/.color/icc/$(cat /sys/devices/virtual/dmi/id/board_name).icc
+fi
 
-xsetroot -solid "#322931"
-hsetroot -solid "#322931"
+if [ -x /usr/bin/numlockx ]; then
+    /usr/bin/numlockx on &
+fi
+
+# restore pywal colors
+# for some reason we have to specify the transparecy
+
+if [ -x /usr/local/bin/wal ]; then
+    /usr/local/bin/wal -a "80" -R
+    #/usr/local/bin/wal -a "80" -i "~/Pictures/Wallpapers"
+fi
+
+# merge urxvt settings
+xrdb -merge ~/.urxvt/urxvt.Xresources
+
+# start pulseaudio daemon
+if [ -x /usr/bin/pulseaudio ]; then
+    (pulseaudio --check || pulseaudio -D) &
+fi
